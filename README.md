@@ -8,7 +8,7 @@ Download this repository and run
 docker-compose -f docker\docker-compose.yaml up --build
 ````
 
-### With local go intallation
+### With local go installation
 ````shell
 go mod vendor
 go mod download
