@@ -4,6 +4,8 @@ import (
 	"github.com/joho/godotenv"
 	"log"
 	"os"
+	"path"
+	"runtime"
 	"strconv"
 )
 
@@ -17,7 +19,7 @@ type AppConfig struct {
 func LoadEnv(path string) {
 	err := godotenv.Load(path)
 	if err != nil {
-		log.Fatal("Error loading .env")
+		log.Fatal("Error loading .env from ", path)
 	}
 
 	App.AppEnv = loadString("APP_ENV")
@@ -25,9 +27,12 @@ func LoadEnv(path string) {
 }
 
 func RootPath() string {
-	wd, _ := os.Getwd()
+	_, file, _, _ := runtime.Caller(0)
 
-	return wd
+	root := path.Dir(path.Dir(file))
+
+	log.Println("root", root)
+	return root
 }
 
 func loadString(code string) string {
